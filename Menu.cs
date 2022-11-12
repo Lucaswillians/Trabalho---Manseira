@@ -49,7 +49,12 @@ class Menu
             }
             else if (resposta.ToUpper () == "DC")
             {
-                // ainda nao fiz
+                Insumos insumoProcura = this.abreBuscaPeloCPF();
+                if (insumoProcura != null) {
+                    // Após realizar a busca com sucesso, então o índice é definido no meio do processo.
+                    int indice = this.controlarCRUD.position;
+                    this.controlarCRUD.dados.RemoveAt(indice);
+                }
             }
             else if (resposta.ToUpper() == "Q")
             {
