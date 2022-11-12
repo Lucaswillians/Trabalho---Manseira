@@ -2,6 +2,8 @@
 Menu menu = new Menu ();
 string Awnser;
 
+Console.Clear();
+
 Console.WriteLine ("Gostaria de mudar as cores das letras e fundo? (S/N)");
 Awnser = Console.ReadLine ();
 if (Awnser.ToUpper () == "S")

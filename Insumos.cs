@@ -1,14 +1,14 @@
 class Insumos
 {
     public string? nome;
-    public string cpf;
+    public string? cpf;
     public string? nomeEmpresa;
     public string? ramoEmpresa;
     public string? produtoEmpresa; 
-    public List <string> insumosEmpresa;
-    public List <decimal> valorInsumos;
-    public List <string> nomesImpostos;
-    public List <decimal> valorImposto;
+    public List <string> insumosEmpresa = new List<string>();
+    public List <decimal> valorInsumos = new List<decimal>();
+    public List <string> nomesImpostos = new List<string>();
+    public List <decimal> valorImposto = new List<decimal>();
    
     public Insumos(
         string? nome,
@@ -27,25 +27,33 @@ class Insumos
         this.nomeEmpresa = nomeEmpresa;
         this.ramoEmpresa = ramoEmpresa;
         this.produtoEmpresa = produtoEmpresa;
-        string[] insumosEmpresaSplit = insumosEmpresa.Split (",");
-        foreach (string insumo in insumosEmpresaSplit)
-        {
-            this.insumosEmpresa.Add(insumo);
+        if (insumosEmpresa != null && insumosEmpresa != "") {
+            string[] insumosEmpresaSplit = insumosEmpresa.Split (",");
+            foreach (string insumo in insumosEmpresaSplit)
+            {
+                this.insumosEmpresa.Add(insumo);
+            }
         }
-        string[] ValorInsumosSplit = valorInsumos.Split (",");
-        foreach (string valor in ValorInsumosSplit)
-        {
-            this.valorInsumos.Add(Convert.ToDecimal(valor));
+        if (valorInsumos != null && valorInsumos != "") {
+            string[] ValorInsumosSplit = valorInsumos.Split (",");
+            foreach (string valor in ValorInsumosSplit)
+            {
+                this.valorInsumos.Add(Convert.ToDecimal(valor));
+            }
         }
-        string[] nomesImpostosSplit = nomesImpostos.Split (",");
-        foreach (string nomeImposto in nomesImpostosSplit)
-        {
-            this.insumosEmpresa.Add(nomeImposto);
-        }
-        string[] valorImpostoSplit = valorImposto.Split (",");
-        foreach (string valorImpost in valorImpostoSplit)
-        {
-            this.valorImposto.Add(Convert.ToDecimal(valorImpost));
+        if (nomesImpostos != null && nomesImpostos != "") {
+            string[] nomesImpostosSplit = nomesImpostos.Split (",");
+            foreach (string nomeImposto in nomesImpostosSplit)
+            {
+                this.nomesImpostos.Add(nomeImposto);
+            }
+        } 
+        if (valorImposto != null && valorImposto != "") {
+            string[] valorImpostoSplit = valorImposto.Split (",");
+            foreach (string valorImpost in valorImpostoSplit)
+            {
+                this.valorImposto.Add(Convert.ToDecimal(valorImpost));
+            }
         }
     }
 }
