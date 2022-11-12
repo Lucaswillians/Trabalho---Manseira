@@ -39,7 +39,13 @@ class Menu
             }
             else if (resposta.ToUpper () == "A")
             {
-                // ainda nao fiz
+                Insumos insumoProcura = this.abreBuscaPeloCPF();
+                if (insumoProcura != null) {
+                    // Após realizar a busca com sucesso, então o índice é definido no meio do processo.
+                    int indice = this.controlarCRUD.position;
+                    this.CadastroInicial ();
+                    this.Gastos (indice);
+                }
             }
             else if (resposta.ToUpper () == "DC")
             {
@@ -83,7 +89,8 @@ class Menu
         this.produto = Console.ReadLine ();
     }   
 
-    public void Gastos ()
+    // Colocando um número absurdo apenas porque não consigo usar `null`.
+    public void Gastos (int indice = 999999)
     {
         string respInsumos = "", respGastos = "", respImpostos = "", respNomeImpostos = "", respValorImpostos = "";
         this.tela.limparTela (2,2,62,12);
@@ -126,17 +133,43 @@ class Menu
             respValorImpostos = "";
         }
 
-        this.controlarCRUD.dados.Add(new Insumos(
-            this.nome, 
-            this.cpf,
-            this.empresa, 
-            this.ramo, 
-            this.produto, 
-            respInsumos, 
-            respValorImpostos, 
-            respNomeImpostos, 
-            respValorImpostos
-        ));
+        if (indice != 999999) {
+            this.controlarCRUD.dados[indice] = new Insumos(
+                this.nome, 
+                this.cpf,
+                this.empresa, 
+                this.ramo, 
+                this.produto, 
+                respInsumos, 
+                respValorImpostos, 
+                respNomeImpostos, 
+                respValorImpostos
+            );
+        }
+        else {
+            this.controlarCRUD.dados.Add(new Insumos(
+                this.nome, 
+                this.cpf,
+                this.empresa, 
+                this.ramo, 
+                this.produto, 
+                respInsumos, 
+                respValorImpostos, 
+                respNomeImpostos, 
+                respValorImpostos
+            ));
+        }
+    }
+
+    public Insumos abreBuscaPeloCPF()
+    {
+        Console.SetCursorPosition (3,3);
+        Console.WriteLine ("Procure pelo CPF: ");
+        string? cpf = Console.ReadLine();
+
+        Insumos  insumo = this.controlarCRUD.buscaInsumo(cpf);
+
+        return insumo;
     }
 
     public void mostraBusca()
@@ -144,11 +177,7 @@ class Menu
         this.tela.limparTela (2,2,62,12);
         this.tela.MontarTela (2,2,78,9);
 
-        Console.SetCursorPosition (3,3);
-        Console.WriteLine ("Procure pelo CPF: ");
-        string? cpf = Console.ReadLine();
-
-        Insumos  insumo = this.controlarCRUD.buscaInsumo(cpf);
+        Insumos insumo = this.abreBuscaPeloCPF();
 
         if (insumo != null) {
             this.tela.MontarTela (2,2,90,5);
